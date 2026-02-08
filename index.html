@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI-Powered Lead Aggregator 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #1e293b;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.9);
+            --bg-card-hover: rgba(30, 41, 59, 1);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #60a5fa;
+            --accent-dark: #3b82f6;
+            --border: #334155;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #a855f7;
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #e2e8f0;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --border: #cbd5e1;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 1%;
+            transition: all 0.3s;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--bg-card);
+            padding: 8px 1%;
+            border-radius: 8px;
+            margin-bottom: 1%;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .notification-badge {
+            background: var(--danger);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px;
+            color: var(--success);
+        }
+        
+        .sync-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1%;
+            margin-bottom: 1%;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+        
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-trend {
+            font-size: 9px;
+            color: var(--success);
+            margin-top: 2px;
+        }
+        
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1%;
+            margin-bottom: 1%;
+        }
+        
+        .roi-card {
+            background: var(--bg-card);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        
+        .roi-platform {
+            font-size: 9px;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+        
+        .roi-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        .chart-container {
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 1%;
+            border: 1px solid var(--border);
+        }
+        
+        .chart-title {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            height: 60px;
+            gap: 3px;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent), var(--accent-dark));
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .chart-bar:hover {
+            background: linear-gradient(to top, var(--success), #16a34a);
+        }
+        
+        .chart-label {
+            font-size: 8px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 3px;
+        }
+        
+        .platform-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        
+        .platform-tabs::-webkit-scrollbar {
+            height: 2px;
+        }
+        
+        .platform-tabs::-webkit-scrollbar-thumb {
+            background: var(--accent);
+        }
+        
+        .tab-btn {
+            padding: 8px 14px;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+        
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .search-bar {
+            position: relative;
+            margin-bottom: 1%;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 35px 10px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1%;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            flex: 1;
+            min-width: 100px;
+            padding: 8px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1%;
+        }
+        
+        .action-bar-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-radius: 6px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-bar-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .action-bar-btn.export {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .bulk-actions {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid #6366f1;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 1%;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .bulk-actions.active {
+            display: flex;
+        }
+        
+        .bulk-text {
+            flex: 1;
+            font-size: 11px;
+            color: #c7d2fe;
+            min-width: 80px;
+        }
+        
+        .bulk-btn {
+            padding: 6px 12px;
+            background: #6366f1;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        
+        .leads-container {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 1%;
+            margin-bottom: 1%;
+            border: 1px solid var(--border);
+        }
+        
+        .lead-item {
+            background: var(--bg-secondary);
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+            position: relative;
+        }
+        
+        .lead-item.hot {
+            border-left-color: var(--danger);
+        }
+        
+        .lead-item.warm {
+            border-left-color: var(--warning);
+        }
+        
+        .lead-item.cold {
+            border-left-color: var(--text-muted);
+        }
+        
+        .lead-item.selected {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .lead-item.duplicate {
+            opacity: 0.6;
+            border-left-color: var(--warning);
+        }
+        
+        .lead-checkbox {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .lead-content {
+            margin-left: 25px;
+        }
+        
+        .lead-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .lead-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .temperature-gauge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            margin-left: 6px;
+        }
+        
+        .temp-bar {
+            width: 20px;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+        }
+        
+        .temp-bar.active.hot {
+            background: var(--danger);
+        }
+        
+        .temp-bar.active.warm {
+            background: var(--warning);
+        }
+        
+        .temp-bar.active.cold {
+            background: var(--text-muted);
+        }
+        
+        .lead-score {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: var(--success);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .lead-score.medium {
+            background: var(--warning);
+        }
+        
+        .lead-score.low {
+            background: var(--text-muted);
+        }
+        
+        .ai-score {
+            font-size: 9px;
+            padding: 2px 6px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--purple);
+            color: var(--purple);
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+        
+        .lead-info {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .lead-stage {
+            display: inline-block;
+            padding: 2px 6px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid var(--success);
+            border-radius: 4px;
+            font-size: 9px;
+            color: var(--success);
+            margin-right: 4px;
+        }
+        
+        .lead-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        
+        .tag {
+            padding: 2px 6px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--purple);
+            border-radius: 4px;
+            font-size: 9px;
+            color: #e9d5ff;
+        }
+        
+        .duplicate-badge {
+            padding: 2px 6px;
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid var(--warning);
+            border-radius: 4px;
+            font-size: 9px;
+            color: var(--warning);
+        }
+        
+        .competitor-badge {
+            padding: 2px 6px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            border-radius: 4px;
+            font-size: 9px;
+            color: var(--danger);
+        }
+        
+        .lead-platform {
+            display: inline-block;
+            padding: 2px 6px;
+            background: rgba(96, 165, 250, 0.2);
+            border-radius: 4px;
+            font-size: 9px;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+        
+        .lead-assigned {
+            display: inline-block;
+            padding: 2px 6px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid var(--success);
+            border-radius: 4px;
+            font-size: 9px;
+            color: #86efac;
+            margin-left: 4px;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            margin-top: 8px;
+        }
+        
+        .quick-btn {
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            font-size: 9px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-btn.call {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .quick-btn.email {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        
+        .quick-btn.schedule {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+        
+        .quick-btn.details {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--purple);
+            border: 1px solid var(--purple);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1%;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .modal-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .modal-section {
+            margin-bottom: 12px;
+        }
+        
+        .modal-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        
+        .modal-value {
+            font-size: 12px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .prediction-box {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid var(--purple);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        
+        .prediction-label {
+            font-size: 10px;
+            color: var(--purple);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .prediction-value {
+            font-size: 16px;
+            color: var(--purple);
+            font-weight: 700;
+        }
+        
+        .timeline {
+            margin-top: 12px;
+        }
+        
+        .timeline-item {
+            padding: 8px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            border-left: 2px solid var(--accent);
+        }
+        
+        .timeline-time {
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+        
+        .timeline-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        
+        .score-history-chart {
+            height: 80px;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            margin: 10px 0;
+        }
+        
+        .score-point {
+            flex: 1;
+            background: linear-gradient(to top, var(--purple), #c084fc);
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .comments-section {
+            background: var(--bg-card);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .comment-item {
+            padding: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .comment-author {
+            font-size: 10px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .comment-time {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-left: 6px;
+        }
+        
+        .comment-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 11px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .voice-recorder {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 10px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .record-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--danger);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .record-btn.recording {
+            animation: pulse 1s infinite;
+        }
+        
+        .voice-note {
+            padding: 8px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            margin: 4px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .voice-time {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+        
+        .template-list {
+            display: grid;
+            gap: 6px;
+            margin: 10px 0;
+        }
+        
+        .template-item {
+            padding: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .template-item:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+        
+        .template-name {
+            font-size: 11px;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .template-preview {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+        
+        .workflow-item {
+            padding: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .workflow-name {
+            font-size: 11px;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .workflow-trigger {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+        
+        .workflow-toggle {
+            float: right;
+            width: 40px;
+            height: 20px;
+            background: var(--text-muted);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .workflow-toggle.active {
+            background: var(--success);
+        }
+        
+        .workflow-toggle::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+        }
+        
+        .workflow-toggle.active::after {
+            transform: translateX(20px);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin: 10px 0;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        
+        .calendar-day.has-event {
+            background: rgba(96, 165, 250, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .calendar-day:hover {
+            border-color: var(--accent);
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--danger);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            cursor: pointer;
+        }
+        
+        .map-marker::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            top: 6px;
+            left: 6px;
+        }
+        
+        .custom-fields {
+            display: grid;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .custom-field {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .field-label {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+        
+        .field-input {
+            padding: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 11px;
+        }
+        
+        .notes-input {
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 11px;
+            min-height: 60px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .modal-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .modal-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .modal-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            background: var(--danger);
+            color: white;
+            border-radius: 3px;
+            font-size: 8px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+        
+        .tab-container {
+            margin: 10px 0;
+        }
+        
+        .tab-header {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+        
+        .tab-header-btn {
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-header-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="container">
+        <header>
+            <h1>🤖 AI-Powered Lead Aggregator 2026</h1>
+            <div class="header-actions">
+                <div class="sync-status">
+                    <span class="sync-dot"></span>
+                    <span>Synced</span>
+                </div>
+                <div class="notification-badge" id="newLeadsBadge">0 New</div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+            </div>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card" onclick="filterByView('all')">
+                <div class="stat-label">Total Leads</div>
+                <div class="stat-value" id="totalLeads">0</div>
+                <div class="stat-trend">↑ 12% vs last week</div>
+            </div>
+            <div class="stat-card" onclick="filterByView('hot')">
+                <div class="stat-label">Hot Leads</div>
+                <div class="stat-value" id="hotLeads">0</div>
+                <div class="stat-trend">↑ 8% conversion</div>
+            </div>
+            <div class="stat-card" onclick="filterByView('today')">
+                <div class="stat-label">Today</div>
+                <div class="stat-value" id="todayLeads">0</div>
+                <div class="stat-trend">↑ 5 new today</div>
+            </div>
+            <div class="stat-card" onclick="filterByView('urgent')">
+                <div class="stat-label">Avg Response</div>
+                <div class="stat-value" id="avgResponse">0m</div>
+                <div class="stat-trend">Target: <15m</div>
+            </div>
+        </div>
+        
+        <div class="roi-grid">
+            <div class="roi-card">
+                <div class="roi-platform">LinkedIn ROI</div>
+                <div class="roi-value">$42/lead</div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-platform">Facebook ROI</div>
+                <div class="roi-value">$28/lead</div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-platform">Google ROI</div>
+                <div class="roi-value">$55/lead</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">📊 Last 7 Days Lead Flow & AI Predictions</div>
+            <div class="chart-bars" id="chartBars"></div>
+        </div>
+        
+        <div class="platform-tabs" id="platformTabs">
+            <button class="tab-btn active" data-platform="all">All</button>
+            <button class="tab-btn" data-platform="linkedin">LinkedIn</button>
+            <button class="tab-btn" data-platform="facebook">Facebook</button>
+            <button class="tab-btn" data-platform="google">Google</button>
+            <button class="tab-btn" data-platform="instagram">Instagram</button>
+            <button class="tab-btn" data-platform="twitter">Twitter/X</button>
+            <button class="tab-btn" data-platform="tiktok">TikTok</button>
+            <button class="tab-btn" data-platform="email">Email</button>
+            <button class="tab-btn" data-platform="web">Web Forms</button>
+            <button class="tab-btn" data-platform="whatsapp">WhatsApp</button>
+            <button class="tab-btn" data-platform="sms">SMS</button>
+            <button class="tab-btn" data-platform="webinar">Webinars</button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 AI-powered search: name, company, email, tags, competitors...">
+            <span class="search-icon">⚡</span>
+        </div>
+        
+        <div class="filter-bar">
+            <select class="filter-select" id="scoreFilter">
+                <option value="all">All Scores</option>
+                <option value="high">High Score (90+)</option>
+                <option value="medium">Medium (60-89)</option>
+                <option value="low">Low (<60)</option>
+            </select>
+            <select class="filter-select" id="sortFilter">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="score-high">AI Score: High</option>
+                <option value="value-high">Value: High</option>
+                <option value="conversion">Conversion Prob</option>
+            </select>
+            <select class="filter-select" id="stageFilter">
+                <option value="all">All Stages</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option>
+                <option value="proposal">Proposal</option>
+                <option value="negotiation">Negotiation</option>
+            </select>
+            <select class="filter-select" id="assignFilter">
+                <option value="all">All Assigned</option>
+                <option value="unassigned">Unassigned</option>
+                <option value="sarah">Sarah M.</option>
+                <option value="john">John D.</option>
+                <option value="mike">Mike R.</option>
+            </select>
+        </div>
+        
+        <div class="action-bar">
+            <button class="action-bar-btn" onclick="selectAllLeads()">Select All</button>
+            <button class="action-bar-btn" onclick="deselectAllLeads()">Clear</button>
+            <button class="action-bar-btn" onclick="showTemplates()">📧 Templates</button>
+            <button class="action-bar-btn" onclick="showSMSCampaign()">💬 SMS Blast</button>
+            <button class="action-bar-btn" onclick="showWorkflows()">⚙️ Workflows</button>
+            <button class="action-bar-btn" onclick="showReports()">📈 Reports</button>
+            <button class="action-bar-btn export" onclick="exportLeads()">📥 Export</button>
+        </div>
+        
+        <div class="bulk-actions" id="bulkActions">
+            <span class="bulk-text"><span id="selectedCount">0</span> selected</span>
+            <button class="bulk-btn" onclick="bulkAssign()">Assign</button>
+            <button class="bulk-btn" onclick="bulkTag()">Tag</button>
+            <button class="bulk-btn" onclick="bulkStage()">Stage</button>
+            <button class="bulk-btn" onclick="bulkEmail()">Email</button>
+            <button class="bulk-btn" onclick="bulkDelete()">Delete</button>
+        </div>
+        
+        <div class="leads-container" id="leadsContainer">
+            <div class="loading">🤖 AI analyzing leads...</div>
+        </div>
+    </div>
+    
+    <!-- Lead Details Modal -->
+    <div class="modal" id="leadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Lead Intelligence Dashboard</div>
+                <button class="modal-close" onclick="closeModal('leadModal')">×</button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    
+    <!-- Templates Modal -->
+    <div class="modal" id="templatesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Email Templates</div>
+                <button class="modal-close" onclick="closeModal('templatesModal')">×</button>
+            </div>
+            <div class="template-list">
+                <div class="template-item" onclick="useTemplate('intro')">
+                    <div class="template-name">Introduction Email</div>
+                    <div class="template-preview">Hi {{name}}, I noticed you're interested in {{product}}...</div>
+                </div>
+                <div class="template-item" onclick="useTemplate('followup')">
+                    <div class="template-name">Follow-up Email</div>
+                    <div class="template-preview">Hi {{name}}, Just following up on our conversation...</div>
+                </div>
+                <div class="template-item" onclick="useTemplate('demo')">
+                    <div class="template-name">Demo Request</div>
+                    <div class="template-preview">Hi {{name}}, I'd love to show you how {{product}} can help...</div>
+                </div>
+                <div class="template-item" onclick="useTemplate('proposal')">
+                    <div class="template-name">Proposal Email</div>
+                    <div class="template-preview">Hi {{name}}, Attached is our proposal for {{company}}...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SMS Campaign Modal -->
+    <div class="modal" id="smsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">SMS Campaign Builder</div>
+                <button class="modal-close" onclick="closeModal('smsModal')">×</button>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">Recipients</div>
+                <div class="modal-value" id="smsRecipients">0 leads selected</div>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">Message (160 chars max)</div>
+                <textarea class="notes-input" id="smsMessage" maxlength="160" placeholder="Hi {{name}}, special offer for {{company}}..."></textarea>
+                <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+                    <span id="charCount">0</span>/160
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="sendSMS()">Send SMS</button>
+                <button class="modal-btn secondary" onclick="closeModal('smsModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Workflows Modal -->
+    <div class="modal" id="workflowsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Automated Workflows</div>
+                <button class="modal-close" onclick="closeModal('workflowsModal')">×</button>
+            </div>
+            <div id="workflowsList"></div>
+        </div>
+    </div>
+    
+    <!-- Reports Modal -->
+    <div class="modal" id="reportsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Custom Reports</div>
+                <button class="modal-close" onclick="closeModal('reportsModal')">×</button>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">Report Type</div>
+                <select class="field-input" id="reportType">
+                    <option value="conversion">Conversion by Platform</option>
+                    <option value="performance">Team Performance</option>
+                    <option value="roi">ROI Analysis</option>
+                    <option value="pipeline">Pipeline Health</option>
+                    <option value="response">Response Time Analysis</option>
+                </select>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">Date Range</div>
+                <select class="field-input">
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Last Quarter</option>
+                    <option>This Year</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="generateReport()">Generate Report</button>
+                <button class="modal-btn secondary" onclick="closeModal('reportsModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced data structures
+        const platforms = ['linkedin', 'facebook', 'google', 'instagram', 'twitter', 'tiktok', 'email', 'web', 'whatsapp', 'sms', 'webinar'];
+        const scores = ['high', 'medium', 'low'];
+        const stages = ['new', 'contacted', 'qualified', 'proposal', 'negotiation'];
+        const companies = ['TechCorp', 'Innovate Inc', 'Digital Solutions', 'Growth Labs', 'StartupX', 'Enterprise Co', 'CloudTech', 'DataFlow', 'NextGen AI', 'Smart Systems', 'Acme Corp', 'Global Tech'];
+        const firstNames = ['Sarah', 'Michael', 'Jennifer', 'David', 'Emily', 'James', 'Lisa', 'Robert', 'Maria', 'John', 'Anna', 'Chris', 'Jessica', 'Kevin', 'Laura', 'Daniel'];
+        const lastNames = ['Chen', 'Smith', 'Johnson', 'Williams', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Garcia', 'Martinez'];
+        const tags = ['Demo Requested', 'Follow-up', 'Hot Prospect', 'Budget Approved', 'Decision Maker', 'Nurture', 'Contract Sent', 'Meeting Scheduled'];
+        const assignees = ['sarah', 'john', 'mike', null];
+        const assigneeNames = {sarah: 'Sarah M.', john: 'John D.', mike: 'Mike R.'};
+        const competitors = ['CompetitorX', 'RivalCorp', 'OtherSolution'];
+        const industries = ['Technology', 'Healthcare', 'Finance', 'Retail', 'Manufacturing', 'Education'];
+        const companySizes = ['1-10', '11-50', '51-200', '201-500', '500+'];
+        
+        let allLeads = [];
+        let selectedLeads = new Set();
+        let currentPlatform = 'all';
+        let currentScore = 'all';
+        let currentStage = 'all';
+        let currentSort = 'newest';
+        let currentAssign = 'all';
+        let searchTerm = '';
+        let newLeadsCount = 0;
+        let currentTheme = 'dark';
+        
+        const workflows = [
+            {id: 1, name: 'Auto-assign High Score', trigger: 'When lead score > 80', active: true},
+            {id: 2, name: 'Send Welcome Email', trigger: 'When new lead arrives', active: true},
+            {id: 3, name: 'Slack Notification', trigger: 'When hot lead detected', active: false},
+            {id: 4, name: 'Follow-up Reminder', trigger: 'After 24h no response', active: true},
+            {id: 5, name: 'Auto-tag Competitors', trigger: 'When competitor mentioned', active: true}
+        ];
+        
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+        }
+        
+        function generateAIScore() {
+            return Math.floor(Math.random() * 40) + 60; // 60-100
+        }
+        
+        function calculateTemperature(score, hoursAgo) {
+            if (score >= 85 && hoursAgo < 24) return 'hot';
+            if (score >= 70 && hoursAgo < 72) return 'warm';
+            return 'cold';
+        }
+        
+        function generateActivity() {
+            const activities = [
+                'Opened email', 'Clicked link in email', 'Visited pricing page',
+                'Downloaded whitepaper', 'Watched demo video', 'Filled contact form',
+                'Requested callback', 'Joined webinar', 'Replied to message',
+                'Viewed product features', 'Checked case studies', 'Compared pricing'
+            ];
+            
+            const count = Math.floor(Math.random() * 6) + 3;
+            const timeline = [];
+            
+            for (let i = 0; i < count; i++) {
+                timeline.push({
+                    time: Math.floor(Math.random() * 72) + 1,
+                    action: activities[Math.floor(Math.random() * activities.length)]
+                });
+            }
+            
+            return timeline.sort((a, b) => a.time - b.time);
+        }
+        
+        function generateScoreHistory() {
+            const history = [];
+            let score = Math.floor(Math.random() * 30) + 50;
+            
+            for (let i = 0; i < 7; i++) {
+                score = Math.max(50, Math.min(100, score + (Math.random() * 20 - 10)));
+                history.push(Math.floor(score));
+            }
+            
+            return history;
+        }
+        
+        function generateComments() {
+            const commentTexts = [
+                'Very interested in enterprise plan',
+                'Mentioned budget of $50k',
+                'Decision maker confirmed',
+                'Wants demo next week',
+                'Comparing with competitors'
+            ];
+            
+            const count = Math.floor(Math.random() * 3);
+            const comments = [];
+            
+            for (let i = 0; i < count; i++) {
+                comments.push({
+                    author: ['Sarah M.', 'John D.', 'Mike R.'][Math.floor(Math.random() * 3)],
+                    time: Math.floor(Math.random() * 48) + 1,
+                    text: commentTexts[Math.floor(Math.random() * commentTexts.length)]
+                });
+            }
+            
+            return comments;
+        }
+        
+        function detectDuplicate(email, phone) {
+            return allLeads.some(l => l.email === email || l.phone === phone);
+        }
+        
+        function generateLeads() {
+            const leads = [];
+            const count = 40;
+            
+            for (let i = 0; i < count; i++) {
+                const platform = platforms[Math.floor(Math.random() * platforms.length)];
+                const score = scores[Math.floor(Math.random() * scores.length)];
+                const aiScore = generateAIScore();
+                const hoursAgo = Math.floor(Math.random() * 168);
+                const isUrgent = Math.random() > 0.9;
+                const assignee = assignees[Math.floor(Math.random() * assignees.length)];
+                const stage = stages[Math.floor(Math.random() * stages.length)];
+                const hasCompetitor = Math.random() > 0.8;
+                const email = `contact${i}@example.com`;
+                const phone = `+1 ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`;
+                
+                const leadTags = [];
+                const tagCount = Math.floor(Math.random() * 3);
+                for (let j = 0; j < tagCount; j++) {
+                    const tag = tags[Math.floor(Math.random() * tags.length)];
+                    if (!leadTags.includes(tag)) leadTags.push(tag);
+                }
+                
+                const lead = {
+                    id: Date.now() + i,
+                    name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
+                    company: companies[Math.floor(Math.random() * companies.length)],
+                    email: email,
+                    phone: phone,
+                    platform: platform,
+                    score: score,
+                    aiScore: aiScore,
+                    value: Math.floor(Math.random() * 95000) + 5000,
+                    hoursAgo: hoursAgo,
+                    urgent: isUrgent,
+                    tags: leadTags,
+                    assignee: assignee,
+                    stage: stage,
+                    activity: generateActivity(),
+                    scoreHistory: generateScoreHistory(),
+                    comments: generateComments(),
+                    notes: '',
+                    voiceNotes: [],
+                    isDuplicate: false,
+                    competitor: hasCompetitor ? competitors[Math.floor(Math.random() * competitors.length)] : null,
+                    conversionProb: Math.floor(Math.random() * 60) + 30,
+                    bestContactTime: ['9:00 AM', '2:00 PM', '4:30 PM'][Math.floor(Math.random() * 3)],
+                    industry: industries[Math.floor(Math.random() * industries.length)],
+                    companySize: companySizes[Math.floor(Math.random() * companySizes.length)],
+                    budget: Math.floor(Math.random() * 100000) + 10000,
+                    location: {lat: 37 + Math.random() * 10, lng: -122 + Math.random() * 10}
+                };
+                
+                lead.temperature = calculateTemperature(lead.aiScore, lead.hoursAgo);
+                leads.push(lead);
+            }
+            
+            // Mark duplicates
+            leads.forEach((lead, i) => {
+                if (i > 0 && Math.random() > 0.95) {
+                    lead.email = leads[0].email;
+                    lead.isDuplicate = true;
+                }
+            });
+            
+            return leads;
+        }
+        
+        function generateChart() {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const chartBars = document.getElementById('chartBars');
+            
+            const html = days.map(day => {
+                const height = Math.floor(Math.random() * 50) + 20;
+                return `
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div class="chart-bar" style="height: ${height}px;" title="${Math.floor(height * 0.8)} leads"></div>
+                        <div class="chart-label">${day}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            chartBars.innerHTML = html;
+        }
+        
+        function updateStats() {
+            const total = allLeads.length;
+            const hot = allLeads.filter(l => l.temperature === 'hot').length;
+            const today = allLeads.filter(l => l.hoursAgo < 24).length;
+            const avgResp = Math.floor(Math.random() * 20) + 5;
+            
+            document.getElementById('totalLeads').textContent = total;
+            document.getElementById('hotLeads').textContent = hot;
+            document.getElementById('todayLeads').textContent = today;
+            document.getElementById('avgResponse').textContent = avgResp + 'm';
+            document.getElementById('newLeadsBadge').textContent = newLeadsCount > 0 ? `${newLeadsCount} New` : '0 New';
+        }
+        
+        function getFilteredLeads() {
+            let filtered = [...allLeads];
+            
+            if (currentPlatform !== 'all') {
+                filtered = filtered.filter(l => l.platform === currentPlatform);
+            }
+            
+            if (currentScore !== 'all') {
+                filtered = filtered.filter(l => l.score === currentScore);
+            }
+            
+            if (currentStage !== 'all') {
+                filtered = filtered.filter(l => l.stage === currentStage);
+            }
+            
+            if (currentAssign !== 'all') {
+                if (currentAssign === 'unassigned') {
+                    filtered = filtered.filter(l => !l.assignee);
+                } else {
+                    filtered = filtered.filter(l => l.assignee === currentAssign);
+                }
+            }
+            
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(l => 
+                    l.name.toLowerCase().includes(term) ||
+                    l.company.toLowerCase().includes(term) ||
+                    l.email.toLowerCase().includes(term) ||
+                    l.tags.some(t => t.toLowerCase().includes(term)) ||
+                    (l.competitor && l.competitor.toLowerCase().includes(term))
+                );
+            }
+            
+            switch(currentSort) {
+                case 'newest':
+                    filtered.sort((a, b) => a.hoursAgo - b.hoursAgo);
+                    break;
+                case 'oldest':
+                    filtered.sort((a, b) => b.hoursAgo - a.hoursAgo);
+                    break;
+                case 'score-high':
+                    filtered.sort((a, b) => b.aiScore - a.aiScore);
+                    break;
+                case 'value-high':
+                    filtered.sort((a, b) => b.value - a.value);
+                    break;
+                case 'conversion':
+                    filtered.sort((a, b) => b.conversionProb - a.conversionProb);
+                    break;
+            }
+            
+            return filtered;
+        }
+        
+        function renderTemperatureGauge(temp) {
+            return `
+                <div class="temperature-gauge">
+                    <div class="temp-bar ${temp === 'hot' ? 'active hot' : ''}"></div>
+                    <div class="temp-bar ${temp === 'warm' || temp === 'hot' ? 'active warm' : ''}"></div>
+                    <div class="temp-bar ${temp === 'cold' || temp === 'warm' || temp === 'hot' ? 'active cold' : ''}"></div>
+                </div>
+            `;
+        }
+        
+        function renderLeads() {
+            const container = document.getElementById('leadsContainer');
+            const filtered = getFilteredLeads();
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state">No leads found</div>';
+                return;
+            }
+            
+            container.innerHTML = filtered.map(lead => `
+                <div class="lead-item ${lead.temperature} ${selectedLeads.has(lead.id) ? 'selected' : ''} ${lead.isDuplicate ? 'duplicate' : ''}" data-id="${lead.id}">
+                    <input type="checkbox" class="lead-checkbox" ${selectedLeads.has(lead.id) ? 'checked' : ''} 
+                           onchange="toggleLead(${lead.id})">
+                    <div class="lead-content">
+                        <div class="lead-header">
+                            <div>
+                                <span class="lead-name">${lead.name}</span>
+                                ${renderTemperatureGauge(lead.temperature)}
+                                ${lead.urgent ? '<span class="priority-badge">URGENT</span>' : ''}
+                            </div>
+                            <div>
+                                <span class="lead-score ${lead.score}">${lead.score.toUpperCase()}</span>
+                                <span class="ai-score">🤖 ${lead.aiScore}</span>
+                            </div>
+                        </div>
+                        <div class="lead-info">${lead.company} • ${lead.industry}</div>
+                        <div class="lead-info">${lead.email} • ${lead.phone}</div>
+                        <div class="lead-info">Value: $${lead.value.toLocaleString()} • ${lead.hoursAgo}h ago • ${lead.conversionProb}% conv.</div>
+                        <div>
+                            <span class="lead-stage">${lead.stage.toUpperCase()}</span>
+                            ${lead.isDuplicate ? '<span class="duplicate-badge">⚠️ DUPLICATE</span>' : ''}
+                            ${lead.competitor ? `<span class="competitor-badge">🏢 Uses ${lead.competitor}</span>` : ''}
+                        </div>
+                        <div class="lead-tags">
+                            ${lead.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <div>
+                            <span class="lead-platform">${lead.platform.toUpperCase()}</span>
+                            ${lead.assignee ? `<span class="lead-assigned">👤 ${assigneeNames[lead.assignee]}</span>` : ''}
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-btn call" onclick="quickAction('call', ${lead.id})">📞 Call</button>
+                            <button class="quick-btn email" onclick="quickAction('email', ${lead.id})">✉️ Email</button>
+                            <button class="quick-btn schedule" onclick="quickAction('schedule', ${lead.id})">📅 Meet</button>
+                            <button class="quick-btn details" onclick="showLeadDetails(${lead.id})">🤖 AI View</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleLead(id) {
+            if (selectedLeads.has(id)) {
+                selectedLeads.delete(id);
+            } else {
+                selectedLeads.add(id);
+            }
+            updateBulkActions();
+            renderLeads();
+        }
+        
+        function updateBulkActions() {
+            const bulkActions = document.getElementById('bulkActions');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            selectedCount.textContent = selectedLeads.size;
+            
+            if (selectedLeads.size > 0) {
+                bulkActions.classList.add('active');
+            } else {
+                bulkActions.classList.remove('active');
+            }
+        }
+        
+        function selectAllLeads() {
+            const filtered = getFilteredLeads();
+            filtered.forEach(lead => selectedLeads.add(lead.id));
+            updateBulkActions();
+            renderLeads();
+        }
+        
+        function deselectAllLeads() {
+            selectedLeads.clear();
+            updateBulkActions();
+            renderLeads();
+        }
+        
+        function quickAction(action, leadId) {
+            const lead = allLeads.find(l => l.id === leadId);
+            if (!lead) return;
+            
+            switch(action) {
+                case 'call':
+                    alert(`☎️ Calling ${lead.name} at ${lead.phone}\n\n🤖 AI Tip: Best time is ${lead.bestContactTime}`);
+                    break;
+                case 'email':
+                    alert(`✉️ Opening email to ${lead.email}\n\n🤖 AI suggests: Use "Demo Request" template`);
+                    break;
+                case 'schedule':
+                    alert(`📅 Scheduling meeting with ${lead.name}\n\n🤖 Recommended: ${lead.bestContactTime}`);
+                    break;
+            }
+        }
+        
+        function showLeadDetails(leadId) {
+            const lead = allLeads.find(l => l.id === leadId);
+            if (!lead) return;
+            
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <div class="tab-container">
+                    <div class="tab-header">
+                        <button class="tab-header-btn active" onclick="switchTab(event, 'overview')">Overview</button>
+                        <button class="tab-header-btn" onclick="switchTab(event, 'ai')">AI Insights</button>
+                        <button class="tab-header-btn" onclick="switchTab(event, 'activity')">Activity</button>
+                        <button class="tab-header-btn" onclick="switchTab(event, 'team')">Team</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="overview">
+                        <div class="modal-section">
+                            <div class="modal-label">Contact Information</div>
+                            <div class="modal-value"><strong>${lead.name}</strong> ${renderTemperatureGauge(lead.temperature)}</div>
+                            <div class="modal-value">${lead.company} • ${lead.industry}</div>
+                            <div class="modal-value">📧 ${lead.email}</div>
+                            <div class="modal-value">📱 ${lead.phone}</div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Lead Intelligence</div>
+                            <div class="modal-value">Platform: <strong>${lead.platform.toUpperCase()}</strong></div>
+                            <div class="modal-value">Stage: <strong>${lead.stage.toUpperCase()}</strong></div>
+                            <div class="modal-value">AI Score: <strong>${lead.aiScore}/100</strong></div>
+                            <div class="modal-value">Est. Value: <strong>$${lead.value.toLocaleString()}</strong></div>
+                            <div class="modal-value">Received: <strong>${lead.hoursAgo} hours ago</strong></div>
+                            ${lead.isDuplicate ? '<div class="modal-value" style="color: var(--warning);">⚠️ Duplicate detected</div>' : ''}
+                            ${lead.competitor ? `<div class="modal-value" style="color: var(--danger);">🏢 Currently uses ${lead.competitor}</div>` : ''}
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Custom Fields</div>
+                            <div class="custom-fields">
+                                <div class="custom-field">
+                                    <div class="field-label">Company Size</div>
+                                    <div class="field-input">${lead.companySize} employees</div>
+                                </div>
+                                <div class="custom-field">
+                                    <div class="field-label">Budget</div>
+                                    <div class="field-input">$${lead.budget.toLocaleString()}</div>
+                                </div>
+                                <div class="custom-field">
+                                    <div class="field-label">Decision Maker</div>
+                                    <input type="checkbox" ${Math.random() > 0.5 ? 'checked' : ''}>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Location</div>
+                            <div class="map-container">
+                                <div class="map-marker" style="left: 50%; top: 50%;"></div>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--text-muted); font-size: 10px;">Map View</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="ai">
+                        <div class="prediction-box">
+                            <div class="prediction-label">🤖 AI Conversion Probability</div>
+                            <div class="prediction-value">${lead.conversionProb}%</div>
+                        </div>
+                        
+                        <div class="prediction-box">
+                            <div class="prediction-label">⏰ Best Contact Time</div>
+                            <div class="prediction-value">${lead.bestContactTime}</div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">AI Score Explanation</div>
+                            <div class="modal-value" style="font-size: 10px;">
+                                • High engagement (${lead.activity.length} interactions)<br>
+                                • ${lead.hoursAgo < 24 ? 'Recent inquiry' : 'Older lead'}<br>
+                                • ${lead.value > 50000 ? 'High value opportunity' : 'Standard value'}<br>
+                                • ${lead.competitor ? 'Using competitor - needs nurture' : 'No competitor mentioned'}
+                            </div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">AI Score History (7 days)</div>
+                            <div class="score-history-chart">
+                                ${lead.scoreHistory.map(s => `<div class="score-point" style="height: ${s}%"></div>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">🎯 AI Recommendations</div>
+                            <div class="modal-value" style="font-size: 11px;">
+                                1. Send personalized demo video<br>
+                                2. Reference their ${lead.industry} experience<br>
+                                3. Mention case study similar to their size (${lead.companySize})<br>
+                                4. ${lead.competitor ? `Address migration from ${lead.competitor}` : 'Focus on unique value props'}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="activity">
+                        <div class="modal-section">
+                            <div class="modal-label">Activity Timeline</div>
+                            <div class="timeline">
+                                ${lead.activity.map(act => `
+                                    <div class="timeline-item">
+                                        <div class="timeline-time">${act.time}h ago</div>
+                                        <div class="timeline-text">${act.action}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Tags</div>
+                            <div class="lead-tags">
+                                ${lead.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                ${lead.tags.length === 0 ? '<span style="color: var(--text-muted); font-size: 11px;">No tags</span>' : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Voice Notes</div>
+                            <div class="voice-recorder">
+                                <button class="record-btn" onclick="toggleRecording(${lead.id})">🎤</button>
+                                <span style="font-size: 11px; color: var(--text-secondary);">Tap to record</span>
+                            </div>
+                            ${lead.voiceNotes.map((vn, i) => `
+                                <div class="voice-note">
+                                    <span style="font-size: 11px;">🎵 Voice note ${i+1}</span>
+                                    <span class="voice-time">2:34</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Notes</div>
+                            <textarea class="notes-input" id="leadNotes" placeholder="Add notes about this lead...">${lead.notes}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="team">
+                        <div class="modal-section">
+                            <div class="modal-label">Assigned To</div>
+                            <select class="field-input" id="assignSelect">
+                                <option value="">Unassigned</option>
+                                <option value="sarah" ${lead.assignee === 'sarah' ? 'selected' : ''}>Sarah M.</option>
+                                <option value="john" ${lead.assignee === 'john' ? 'selected' : ''}>John D.</option>
+                                <option value="mike" ${lead.assignee === 'mike' ? 'selected' : ''}>Mike R.</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Team Comments</div>
+                            <div class="comments-section">
+                                ${lead.comments.map(c => `
+                                    <div class="comment-item">
+                                        <div>
+                                            <span class="comment-author">${c.author}</span>
+                                            <span class="comment-time">${c.time}h ago</span>
+                                        </div>
+                                        <div class="comment-text">${c.text}</div>
+                                    </div>
+                                `).join('')}
+                                ${lead.comments.length === 0 ? '<div style="color: var(--text-muted); font-size: 11px; padding: 10px;">No comments yet</div>' : ''}
+                            </div>
+                            <textarea class="comment-input" id="newComment" placeholder="Add a comment..."></textarea>
+                            <button class="modal-btn primary" style="margin-top: 8px; width: 100%;" onclick="addComment(${lead.id})">Post Comment</button>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <div class="modal-label">Integration Status</div>
+                            <div class="modal-value">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                    <span>Salesforce</span>
+                                    <span style="color: var(--success); font-size: 10px;">✓ Synced</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                    <span>HubSpot</span>
+                                    <span style="color: var(--success); font-size: 10px;">✓ Synced</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                                    <span>Slack</span>
+                                    <span style="color: var(--text-muted); font-size: 10px;">○ Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn primary" onclick="saveLeadChanges(${lead.id})">Save Changes</button>
+                    <button class="modal-btn secondary" onclick="closeModal('leadModal')">Close</button>
+                </div>
+            `;
+            
+            document.getElementById('leadModal').classList.add('active');
+        }
+        
+        function switchTab(event, tabId) {
+            const tabBtns = event.target.parentElement.querySelectorAll('.tab-header-btn');
+            const tabContents = event.target.closest('.tab-container').querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        function toggleRecording(leadId) {
+            const lead = allLeads.find(l => l.id === leadId);
+            if (lead) {
+                alert('🎤 Voice recording started... (simulated)');
+                setTimeout(() => {
+                    lead.voiceNotes.push({duration: 154});
+                    alert('✓ Voice note saved');
+                }, 2000);
+            }
+        }
+        
+        function addComment(leadId) {
+            const lead = allLeads.find(l => l.id === leadId);
+            const text = document.getElementById('newComment').value;
+            
+            if (lead && text) {
+                lead.comments.unshift({
+                    author: 'You',
+                    time: 0,
+                    text: text
+                });
+                showLeadDetails(leadId);
+            }
+        }
+        
+        function saveLeadChanges(leadId) {
+            const lead = allLeads.find(l => l.id === leadId);
+            const notes = document.getElementById('leadNotes')?.value;
+            const assignee = document.getElementById('assignSelect')?.value;
+            
+            if (lead) {
+                if (notes !== undefined) lead.notes = notes;
+                if (assignee !== undefined) lead.assignee = assignee || null;
+                alert('✓ Changes saved successfully!');
+                closeModal('leadModal');
+                renderLeads();
+            }
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        function showTemplates() {
+            document.getElementById('templatesModal').classList.add('active');
+        }
+        
+        function useTemplate(type) {
+            alert(`📧 Template "${type}" loaded!\n\nYou can now send to ${selectedLeads.size > 0 ? selectedLeads.size + ' selected leads' : 'a lead'}`);
+            closeModal('templatesModal');
+        }
+        
+        function showSMSCampaign() {
+            document.getElementById('smsRecipients').textContent = `${selectedLeads.size} leads selected`;
+            document.getElementById('smsModal').classList.add('active');
+            
+            document.getElementById('smsMessage').addEventListener('input', (e) => {
+                document.getElementById('charCount').textContent = e.target.value.length;
+            });
+        }
+        
+        function sendSMS() {
+            const message = document.getElementById('smsMessage').value;
+            if (message && selectedLeads.size > 0) {
+                alert(`💬 SMS sent to ${selectedLeads.size} leads!\n\nMessage: ${message}`);
+                closeModal('smsModal');
+            } else {
+                alert('Please select leads and enter a message');
+            }
+        }
+        
+        function showWorkflows() {
+            const workflowsList = document.getElementById('workflowsList');
+            
+            workflowsList.innerHTML = workflows.map(w => `
+                <div class="workflow-item">
+                    <div class="workflow-toggle ${w.active ? 'active' : ''}" onclick="toggleWorkflow(${w.id})"></div>
+                    <div class="workflow-name">${w.name}</div>
+                    <div class="workflow-trigger">${w.trigger}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('workflowsModal').classList.add('active');
+        }
+        
+        function toggleWorkflow(id) {
+            const workflow = workflows.find(w => w.id === id);
+            if (workflow) {
+                workflow.active = !workflow.active;
+                showWorkflows();
+            }
+        }
+        
+        function showReports() {
+            document.getElementById('reportsModal').classList.add('active');
+        }
+        
+        function generateReport() {
+            const type = document.getElementById('reportType').value;
+            alert(`📊 Generating ${type} report...\n\nReport will be ready in a few seconds!`);
+            closeModal('reportsModal');
+        }
+        
+        function bulkAssign() {
+            if (selectedLeads.size === 0) return;
+            const assignee = prompt('Assign to (sarah/john/mike):');
+            if (assignee && assigneeNames[assignee]) {
+                selectedLeads.forEach(id => {
+                    const lead = allLeads.find(l => l.id === id);
+                    if (lead) lead.assignee = assignee;
+                });
+                alert(`✓ ${selectedLeads.size} leads assigned to ${assigneeNames[assignee]}`);
+                deselectAllLeads();
+                renderLeads();
+            }
+        }
+        
+        function bulkTag() {
+            if (selectedLeads.size === 0) return;
+            const tag = prompt('Enter tag name:');
+            if (tag) {
+                selectedLeads.forEach(id => {
+                    const lead = allLeads.find(l => l.id === id);
+                    if (lead && !lead.tags.includes(tag)) {
+                        lead.tags.push(tag);
+                    }
+                });
+                alert(`✓ Tag "${tag}" added to ${selectedLeads.size} leads`);
+                deselectAllLeads();
+                renderLeads();
+            }
+        }
+        
+        function bulkStage() {
+            if (selectedLeads.size === 0) return;
+            const stage = prompt('Move to stage (new/contacted/qualified/proposal/negotiation):');
+            if (stage && stages.includes(stage)) {
+                selectedLeads.forEach(id => {
+                    const lead = allLeads.find(l => l.id === id);
+                    if (lead) lead.stage = stage;
+                });
+                alert(`✓ ${selectedLeads.size} leads moved to ${stage}`);
+                deselectAllLeads();
+                renderLeads();
+            }
+        }
+        
+        function bulkEmail() {
+            if (selectedLeads.size === 0) return;
+            alert(`📧 Opening bulk email composer for ${selectedLeads.size} leads...`);
+            showTemplates();
+        }
+        
+        function bulkDelete() {
+            if (selectedLeads.size === 0) return;
+            if (confirm(`Delete ${selectedLeads.size} leads?`)) {
+                allLeads = allLeads.filter(l => !selectedLeads.has(l.id));
+                selectedLeads.clear();
+                updateStats();
+                updateBulkActions();
+                renderLeads();
+            }
+        }
+        
+        function exportLeads() {
+            const filtered = getFilteredLeads();
+            let csv = 'Name,Company,Email,Phone,Platform,Score,AI Score,Value,Stage,Temperature,Conversion Prob,Assigned,Tags,Industry,Company Size,Budget\n';
+            
+            filtered.forEach(lead => {
+                csv += `"${lead.name}","${lead.company}","${lead.email}","${lead.phone}","${lead.platform}","${lead.score}","${lead.aiScore}","${lead.value}","${lead.stage}","${lead.temperature}","${lead.conversionProb}%","${lead.assignee ? assigneeNames[lead.assignee] : 'Unassigned'}","${lead.tags.join('; ')}","${lead.industry}","${lead.companySize}","${lead.budget}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ai_leads_export_${Date.now()}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            alert('✓ Export complete!');
+        }
+        
+        function filterByView(view) {
+            switch(view) {
+                case 'hot':
+                    currentSort = 'score-high';
+                    document.getElementById('sortFilter').value = 'score-high';
+                    break;
+                case 'today':
+                    currentSort = 'newest';
+                    document.getElementById('sortFilter').value = 'newest';
+                    break;
+            }
+            renderLeads();
+        }
+        
+        // Event listeners
+        document.getElementById('platformTabs').addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-btn')) {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentPlatform = e.target.dataset.platform;
+                renderLeads();
+            }
+        });
+        
+        document.getElementById('scoreFilter').addEventListener('change', (e) => {
+            currentScore = e.target.value;
+            renderLeads();
+        });
+        
+        document.getElementById('sortFilter').addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            renderLeads();
+        });
+        
+        document.getElementById('stageFilter').addEventListener('change', (e) => {
+            currentStage = e.target.value;
+            renderLeads();
+        });
+        
+        document.getElementById('assignFilter').addEventListener('change', (e) => {
+            currentAssign = e.target.value;
+            renderLeads();
+        });
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderLeads();
+        });
+        
+        // Close modals on outside click
+        ['leadModal', 'templatesModal', 'smsModal', 'workflowsModal', 'reportsModal'].forEach(modalId => {
+            document.getElementById(modalId).addEventListener('click', (e) => {
+                if (e.target.id === modalId) {
+                    closeModal(modalId);
+                }
+            });
+        });
+        
+        // Initialize
+        allLeads = generateLeads();
+        generateChart();
+        updateStats();
+        renderLeads();
+        
+        // Auto-refresh
+        setInterval(() => {
+            const newCount = Math.floor(Math.random() * 2);
+            for (let i = 0; i < newCount; i++) {
+                const platform = platforms[Math.floor(Math.random() * platforms.length)];
+                const aiScore = generateAIScore();
+                const stage = stages[0]; // new leads start at 'new'
+                
+                const newLead = {
+                    id: Date.now() + i,
+                    name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
+                    company: companies[Math.floor(Math.random() * companies.length)],
+                    email: `new${Date.now()}@example.com`,
+                    phone: `+1 ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+                    platform: platform,
+                    score: aiScore >= 85 ? 'high' : (aiScore >= 70 ? 'medium' : 'low'),
+                    aiScore: aiScore,
+                    value: Math.floor(Math.random() * 95000) + 5000,
+                    hoursAgo: 0,
+                    urgent: Math.random() > 0.9,
+                    tags: [],
+                    assignee: null,
+                    stage: stage,
+                    activity: generateActivity(),
+                    scoreHistory: generateScoreHistory(),
+                    comments: [],
+                    notes: '',
+                    voiceNotes: [],
+                    isDuplicate: false,
+                    competitor: null,
+                    conversionProb: Math.floor(Math.random() * 60) + 30,
+                    bestContactTime: ['9:00 AM', '2:00 PM', '4:30 PM'][Math.floor(Math.random() * 3)],
+                    industry: industries[Math.floor(Math.random() * industries.length)],
+                    companySize: companySizes[Math.floor(Math.random() * companySizes.length)],
+                    budget: Math.floor(Math.random() * 100000) + 10000,
+                    location: {lat: 37 + Math.random() * 10, lng: -122 + Math.random() * 10}
+                };
+                
+                newLead.temperature = calculateTemperature(newLead.aiScore, newLead.hoursAgo);
+                allLeads.unshift(newLead);
+                newLeadsCount++;
+            }
+            updateStats();
+            if (currentSort === 'newest') {
+                renderLeads();
+            }
+        }, 60000);
+        
+        setInterval(() => {
+            if (newLeadsCount > 0) {
+                newLeadsCount = Math.max(0, newLeadsCount - 1);
+                updateStats();
+            }
+        }, 15000);
+    </script>
+</body>
+</html>
